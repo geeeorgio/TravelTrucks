@@ -67,7 +67,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-inputs);
+  background: var(--color-white);
   border-radius: 10px;
 }
 

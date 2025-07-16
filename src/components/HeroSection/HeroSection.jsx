@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import CustomButton from "../CustomStyledComponents/CustomButton/CustomButton";
 import s from "./HeroSection.module.css";
 
 const HeroSection = () => {
@@ -30,11 +30,9 @@ const HeroSection = () => {
             You can find everything you want in our catalog
           </p>
         </div>
-        <Link to={"/catalog"}>
-          <button className={s.button} type="button">
-            View Now
-          </button>
-        </Link>
+        <CustomButton type="button" to={"/catalog"}>
+          View Now
+        </CustomButton>
       </div>
     </section>
   );

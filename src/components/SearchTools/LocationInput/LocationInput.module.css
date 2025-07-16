@@ -1,0 +1,51 @@
+.locationInputWrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.locationLabel {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-gray);
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.locationField {
+    width: 100%;
+    margin-top: 8px;
+    border-radius: 12px;
+    padding: 12px 18px 12px 44px;
+    background-color: var(--color-inputs);
+    border: 1px solid transparent;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-main);
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out;
+    outline: none;
+
+    &:focus {
+        border-color: var(--color-main);
+    }
+
+    ::placeholder {
+        color: var(--color-gray);
+    }
+}
+
+.locationIcon {
+    position: absolute;
+    left: 18px;
+    top: calc(50% + 16px);
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    fill: var(--color-gray);
+}

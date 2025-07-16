@@ -1,0 +1,18 @@
+.section {
+    padding: 48px 0;
+}
+
+.container {
+    padding: 0 64px;
+    display: flex;
+    flex-direction: row;
+    gap: 64px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.listWrapper {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+}
