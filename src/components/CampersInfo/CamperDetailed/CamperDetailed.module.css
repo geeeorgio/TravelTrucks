@@ -1,0 +1,152 @@
+.mainWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.headerInfo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.name,
+.price {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.33;
+    color: var(--color-main);
+}
+
+.infoWrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.reviewsAndLocation {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.rating,
+.location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.starIcon {
+    fill: var(--color-rating);
+    width: 16px;
+    height: 16px;
+}
+
+.mapIcon {
+    composes: starIcon;
+    fill: var(--color-main);
+}
+
+.ratingNum,
+.reviewsText {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    color: var(--color-main);
+}
+
+.locationText {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-main);
+}
+
+.imageGallery {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.galleryImageContainer {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.galleryImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    object-position: center;
+}
+
+.description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.tabsSection {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 24px;
+    margin: 60px 0 44px 0;
+    border-bottom: 1px solid var(--color-gray-light);
+}
+
+.tabsWrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.tabLink {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--color-main);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+        color: var(--color-button);
+    }
+
+    &.active {
+        color: var(--color-button);
+    }
+
+    &.active::after {
+        content: '';
+        position: absolute;
+        bottom: -108px;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: var(--color-button);
+        border-radius: 4px;
+    }
+}

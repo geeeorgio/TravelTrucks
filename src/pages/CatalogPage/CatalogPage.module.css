@@ -1,9 +1,4 @@
-.section {
-    padding: 48px 0;
-}
-
 .container {
-    padding: 0 64px;
     display: flex;
     flex-direction: row;
     gap: 64px;

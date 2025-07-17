@@ -7,6 +7,12 @@ const CatalogPage = lazy(() => import("../src/pages/CatalogPage/CatalogPage"));
 const CamperDetailsPage = lazy(() =>
   import("../src/pages/CamperDetailsPage/CamperDetailsPage")
 );
+const CamperFeatures = lazy(() =>
+  import("../src/components/CampersInfo/CamperFeatures/CamperFeatures")
+);
+const CamperReviews = lazy(() =>
+  import("../src/components/CampersInfo/CamperReviews/CamperReviews")
+);
 
 function App() {
   return (
@@ -14,7 +20,11 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/catalog/:id" element={<CamperDetailsPage />} />
+        <Route path="/campers/:id" element={<CamperDetailsPage />}>
+          <Route index element={<CamperFeatures />} />
+          <Route path="features" element={<CamperFeatures />} />
+          <Route path="reviews" element={<CamperReviews />} />
+        </Route>
       </Routes>
     </Layout>
   );

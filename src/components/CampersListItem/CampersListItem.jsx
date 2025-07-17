@@ -3,7 +3,6 @@ import CustomIcons from "../CustomStyledComponents/CustomIcons/CustomIcons";
 import s from "./CampersListItem.module.css";
 
 const CampersListItem = ({ item }) => {
-  console.log(item);
   const {
     description,
     name,

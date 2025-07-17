@@ -6,8 +6,8 @@ import s from "./PageHeader.module.css";
 const PageHeader = () => {
   return (
     <header className={s.header}>
-        <PageLogo />
-        <NavBar />
+      <PageLogo />
+      <NavBar />
     </header>
   );
 };

@@ -1,29 +1,64 @@
 import { useState } from "react";
-import CustomButton from "../CustomStyledComponents/CustomButton/CustomButton";
 import FilterOption from "../SearchTools/FilterOption/FilterOption";
 import LocationInput from "../SearchTools/LocationInput/LocationInput";
+import CustomButton from "../CustomStyledComponents/CustomButton/CustomButton";
 import s from "./SearchForm.module.css";
 
 const SearchForm = () => {
-  const [location, setLocation] = useState("");
-  const [selectedEquipment, setSelectedEquipment] = useState("");
-  const [selectedVehicleType, setSelectedVehicleType] = useState("");
+  const [formData, setFormData] = useState({
+    location: "",
+    equipment: [],
+    vehicleType: "",
+  });
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handleLocationChange = () => {};
+    console.log("Form Data:", formData);
 
-  const handleEquipmentChange = () => {};
+    setFormData({
+      location: "",
+      equipment: [],
+      vehicleType: "",
+    });
+  };
 
-  const handleVehicleTypeChange = () => {};
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleEquipmentChange = (e) => {
+    const { value, checked } = e.target;
+    setFormData((prevData) => {
+      const updatedEquipment = checked
+        ? [...prevData.equipment, value]
+        : prevData.equipment.filter((item) => item !== value);
+
+      return {
+        ...prevData,
+        equipment: updatedEquipment,
+      };
+    });
+  };
+
+  const handleVehicleTypeChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      vehicleType: value,
+    }));
+  };
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
       <LocationInput
         placeholder={"Kyiv, Ukraine"}
         iconId={"map"}
-        value={location}
-        onChange={handleLocationChange}
+        value={formData.location}
+        onChange={handleInputChange}
       />
 
       <p className={s.filtersTitle}>Filters</p>
@@ -37,16 +72,25 @@ const SearchForm = () => {
             value={"AC"}
             iconId={"wind"}
             text={"AC"}
-            checked={selectedEquipment.includes("AC")}
+            checked={formData.equipment.includes("AC")}
             onChange={handleEquipmentChange}
           />
           <FilterOption
             type={"checkbox"}
             name={"equipment"}
-            value={"transmission"}
+            value={"automatic"}
             iconId={"diagram"}
             text={"Automatic"}
-            checked={selectedEquipment.includes("transmission")}
+            checked={formData.equipment.includes("automatic")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"manual"}
+            iconId={"diagram"}
+            text={"Manual"}
+            checked={formData.equipment.includes("manual")}
             onChange={handleEquipmentChange}
           />
           <FilterOption
@@ -55,7 +99,7 @@ const SearchForm = () => {
             value={"kitchen"}
             iconId={"cup"}
             text={"Kitchen"}
-            checked={selectedEquipment.includes("kitchen")}
+            checked={formData.equipment.includes("kitchen")}
             onChange={handleEquipmentChange}
           />
           <FilterOption
@@ -64,7 +108,7 @@ const SearchForm = () => {
             value={"TV"}
             iconId={"tv"}
             text={"TV"}
-            checked={selectedEquipment.includes("TV")}
+            checked={formData.equipment.includes("TV")}
             onChange={handleEquipmentChange}
           />
           <FilterOption
@@ -73,7 +117,79 @@ const SearchForm = () => {
             value={"bathroom"}
             iconId={"shower"}
             text={"Bathroom"}
-            checked={selectedEquipment.includes("transmission")}
+            checked={formData.equipment.includes("bathroom")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"diesel"}
+            iconId={"fuel"}
+            text={"Diesel"}
+            checked={formData.equipment.includes("diesel")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"hybrid"}
+            iconId={"fuel"}
+            text={"Hybrid"}
+            checked={formData.equipment.includes("hybrid")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"petrol"}
+            iconId={"fuel"}
+            text={"Petrol"}
+            checked={formData.equipment.includes("petrol")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"microwave"}
+            iconId={"microwave"}
+            text={"Microwave"}
+            checked={formData.equipment.includes("microwave")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"refrigerator"}
+            iconId={"fridge"}
+            text={"Refrigerator"}
+            checked={formData.equipment.includes("refrigerator")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"radio"}
+            iconId={"radios"}
+            text={"Radio"}
+            checked={formData.equipment.includes("radio")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"water"}
+            iconId={"water"}
+            text={"Water"}
+            checked={formData.equipment.includes("water")}
+            onChange={handleEquipmentChange}
+          />
+          <FilterOption
+            type={"checkbox"}
+            name={"equipment"}
+            value={"gas"}
+            iconId={"gas"}
+            text={"Gas"}
+            checked={formData.equipment.includes("gas")}
             onChange={handleEquipmentChange}
           />
         </div>
@@ -88,7 +204,7 @@ const SearchForm = () => {
             value={"panelTruck"}
             iconId={"1x2"}
             text={"Van"}
-            checked={selectedVehicleType === "panelTruck"}
+            checked={formData.vehicleType === "panelTruck"}
             onChange={handleVehicleTypeChange}
           />
           <FilterOption
@@ -97,7 +213,7 @@ const SearchForm = () => {
             value={"fullyIntegrated"}
             iconId={"grid"}
             text={"Fully Integrated"}
-            checked={selectedVehicleType === "fullyIntegrated"}
+            checked={formData.vehicleType === "fullyIntegrated"}
             onChange={handleVehicleTypeChange}
           />
           <FilterOption
@@ -106,15 +222,13 @@ const SearchForm = () => {
             value={"alcove"}
             iconId={"3x3"}
             text={"Alcove"}
-            checked={selectedVehicleType === "alcove"}
+            checked={formData.vehicleType === "alcove"}
             onChange={handleVehicleTypeChange}
           />
         </div>
       </div>
 
-      <button className={s.btn} type="submit">
-        Search
-      </button>
+      <CustomButton type="submit">Search</CustomButton>
     </form>
   );
 };
