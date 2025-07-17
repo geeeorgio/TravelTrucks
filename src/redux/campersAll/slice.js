@@ -7,8 +7,6 @@ const initialState = {
   total: null,
   isLoading: false,
   isError: false,
-  page: 1,
-  limit: 4,
 };
 
 const slice = createSlice({
@@ -24,7 +22,12 @@ const slice = createSlice({
       .addCase(getLimitedListOfCampers.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.paginated = payload.items;
-        state.items.push(...state.paginated);
+
+        const newItems = payload.items.filter(
+          (camper) => !state.items.some((existing) => existing.id === camper.id)
+        );
+        state.items.push(...newItems);
+
         state.total = payload.total;
       })
 
@@ -45,5 +48,4 @@ const slice = createSlice({
   },
 });
 
-export const { setPage } = slice.actions;
 export const campersReducer = slice.reducer;

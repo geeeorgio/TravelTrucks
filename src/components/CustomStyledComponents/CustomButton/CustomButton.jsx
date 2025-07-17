@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import s from "./CustomButton.module.css";
 
-const CustomButton = ({ type, to, onClick, children }) => {
+const CustomButton = ({ type, to, onClick, className, children }) => {
   const navigate = useNavigate();
   const handleNavigation = () => {
     if (!to) return;
@@ -11,7 +11,7 @@ const CustomButton = ({ type, to, onClick, children }) => {
 
   return (
     <button
-      className={s.button}
+      className={className ? className : s.button}
       type={type}
       onClick={onClick ? onClick : handleNavigation}
     >

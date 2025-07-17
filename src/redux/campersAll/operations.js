@@ -18,7 +18,6 @@ export const getLimitedListOfCampers = createAsyncThunk(
   async ({ page, limit }, { rejectWithValue }) => {
     try {
       const { data } = await api.get(`/campers?page=${page}&limit=${limit}`);
-      console.log(data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

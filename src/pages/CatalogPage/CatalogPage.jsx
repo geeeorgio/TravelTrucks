@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLimitedListOfCampers } from "../../redux/campersAll/operations";
 import SearchForm from "../../components/SearchForm/SearchForm";
@@ -7,37 +7,46 @@ import Section from "../../components/CustomStyledComponents/Section/Section";
 import Container from "../../components/CustomStyledComponents/Container/Container";
 import {
   selectAllCampersList,
-  selectCampersLimit,
-  selectCampersPage,
-  selectIsAbleToLoad,
+  selectCampersIsLoading,
   selectTotalCampersNumber,
 } from "../../redux/campersAll/selectors";
-
-import s from "./CatalogPage.module.css";
 import CustomButton from "../../components/CustomStyledComponents/CustomButton/CustomButton";
-import { paginator } from "../../helpers/pagination";
+import s from "./CatalogPage.module.css";
+import Loader from "../../components/Loader/Loader";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
   const campersList = useSelector(selectAllCampersList);
-  const searchLimit = useSelector(selectCampersLimit);
   const totalCampers = useSelector(selectTotalCampersNumber);
-  const isAbleToLoad = useSelector(selectIsAbleToLoad);
-  const pageCount = useSelector(selectCampersPage);
+  const campersLoading = useSelector(selectCampersIsLoading);
 
-  paginator.setLimit(searchLimit);
-  paginator.setPage(pageCount);
+  const [paginator, setPaginator] = useState({
+    limit: 4,
+    page: 1,
+    isAbleToLoad: true,
+  });
 
   useEffect(() => {
-    dispatch(getLimitedListOfCampers({ page: 1, limit: searchLimit }));
-  }, [dispatch, searchLimit]);
+    dispatch(
+      getLimitedListOfCampers({ page: paginator.page, limit: paginator.limit })
+    );
+  }, [dispatch, paginator.page, paginator.limit]);
 
   const handleLoadMore = () => {
-    if (isAbleToLoad) {
-      console.log("page in load more", newPage);
+    setPaginator((prev) => {
+      const nextPage = prev.page + 1;
 
-      dispatch(getLimitedListOfCampers({ page: newPage, limit: searchLimit }));
-    }
+      dispatch(getLimitedListOfCampers({ page: nextPage, limit: prev.limit }));
+
+      const canLoad = totalCampers > nextPage * prev.limit;
+
+      if (!canLoad) {
+        console.log("No more campers to load");
+        return { ...prev, isAbleToLoad: false };
+      }
+
+      return { ...prev, page: nextPage };
+    });
   };
 
   return (
@@ -45,12 +54,24 @@ const CatalogPage = () => {
       <Container>
         <div className={s.container}>
           <SearchForm />
-          <div className={s.listWrapper}>
-            {campersList.length > 0 && <CampersList campers={campersList} />}
-            {isAbleToLoad && (
-              <CustomButton type="button" onClick={handleLoadMore} />
-            )}
-          </div>
+          {campersLoading ? (
+            <Loader />
+          ) : (
+            <div className={s.listWrapper}>
+              {campersList.length > 0 && <CampersList campers={campersList} />}
+              {!campersLoading && paginator.isAbleToLoad && (
+                <div className={s.loadMoreWrapper}>
+                  <CustomButton
+                    type="button"
+                    onClick={handleLoadMore}
+                    className={s.loadMoreBtn}
+                  >
+                    Load more
+                  </CustomButton>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </Container>
     </Section>
