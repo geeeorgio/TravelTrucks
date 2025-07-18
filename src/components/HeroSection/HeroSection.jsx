@@ -1,4 +1,7 @@
 import CustomButton from "../CustomStyledComponents/CustomButton/CustomButton";
+import photo1x from "../../assets/images/hero-desktop-1x.webp";
+import photo2x from "../../assets/images/hero-desktop-2x.webp";
+import regularDesktop from "../../assets/images/hero-desktop-1x.jpg";
 import s from "./HeroSection.module.css";
 
 const HeroSection = () => {
@@ -7,15 +10,14 @@ const HeroSection = () => {
       <div className={s.imageWrapper}>
         <picture>
           <source
-            srcSet="/src/assets/images/hero-desktop-1x.webp 1x, 
-              /src/assets/images/hero-desktop-2x.webp 2x,
-              "
+            srcSet={`${photo1x} 1x, ${photo2x} 2x`}
+            loading="lazy"
             media="(min-width: 1280px)"
             type="image/webp"
           />
           <img
             className={s.image}
-            src="/src/assets/images/hero-desktop-1x.jpg"
+            src={regularDesktop}
             alt="Dream camper van at sunset"
           />
         </picture>
