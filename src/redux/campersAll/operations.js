@@ -13,11 +13,15 @@ export const getAllCampers = createAsyncThunk(
   }
 );
 
-export const getLimitedListOfCampers = createAsyncThunk(
-  "campers/pagination",
-  async ({ page, limit }, { rejectWithValue }) => {
+export const getCampersBySearchParams = createAsyncThunk(
+  "campers/selected",
+  async ({ page, limit, params }, { rejectWithValue }) => {
+    const url = params
+      ? `/campers?page=${page}&limit=${limit}&${params}`
+      : `/campers?page=${page}&limit=${limit}`;
+
     try {
-      const { data } = await api.get(`/campers?page=${page}&limit=${limit}`);
+      const { data } = await api.get(url);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

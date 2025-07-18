@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { getAllCampers, getLimitedListOfCampers } from "./operations";
+import { getAllCampers, getCampersBySearchParams } from "./operations";
 
 const initialState = {
   items: [],
@@ -12,6 +12,11 @@ const initialState = {
 const slice = createSlice({
   name: "campers",
   initialState,
+  reducers: {
+    clearState: () => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllCampers.fulfilled, (state, { payload }) => {
@@ -19,7 +24,7 @@ const slice = createSlice({
         state.items = payload.items;
         state.total = payload.total;
       })
-      .addCase(getLimitedListOfCampers.fulfilled, (state, { payload }) => {
+      .addCase(getCampersBySearchParams.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.paginated = payload.items;
 
@@ -32,14 +37,14 @@ const slice = createSlice({
       })
 
       .addMatcher(
-        isAnyOf(getAllCampers.pending, getLimitedListOfCampers.pending),
+        isAnyOf(getAllCampers.pending, getCampersBySearchParams.pending),
         (state) => {
           state.isError = false;
           state.isLoading = true;
         }
       )
       .addMatcher(
-        isAnyOf(getAllCampers.rejected, getLimitedListOfCampers.rejected),
+        isAnyOf(getAllCampers.rejected, getCampersBySearchParams.rejected),
         (state) => {
           state.isError = true;
           state.isLoading = false;
@@ -48,4 +53,5 @@ const slice = createSlice({
   },
 });
 
+export const { clearState } = slice.actions;
 export const campersReducer = slice.reducer;

@@ -18,6 +18,7 @@ const HeroSection = () => {
           <img
             className={s.image}
             src={regularDesktop}
+            loading="lazy"
             alt="Dream camper van at sunset"
           />
         </picture>

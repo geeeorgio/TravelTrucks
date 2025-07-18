@@ -1,10 +1,12 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import FilterOption from "../SearchTools/FilterOption/FilterOption";
 import LocationInput from "../SearchTools/LocationInput/LocationInput";
 import CustomButton from "../CustomStyledComponents/CustomButton/CustomButton";
+
 import s from "./SearchForm.module.css";
 
-const SearchForm = () => {
+const SearchForm = ({ setSearchParams, handleResetForm }) => {
   const [formData, setFormData] = useState({
     location: "",
     equipment: [],
@@ -13,14 +15,38 @@ const SearchForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (
+      !formData.vehicleType &&
+      formData.equipment.length === 0 &&
+      !formData.location
+    ) {
+      toast("Please select something first", { icon: "🔍" });
+      return;
+    }
 
-    console.log("Form Data:", formData);
+    handleResetForm();
 
-    setFormData({
-      location: "",
-      equipment: [],
-      vehicleType: "",
+    const url = new URLSearchParams();
+
+    if (formData.location) {
+      url.set("location", formData.location);
+    }
+
+    formData.equipment.forEach((item) => {
+      if (item === "hybrid" || item === "diesel" || item === "petrol") {
+        url.append("engine", item);
+      } else if (item === "automatic" || item === "manual") {
+        url.append("transmission", item);
+      } else {
+        url.append(item, true);
+      }
     });
+
+    if (formData.vehicleType) {
+      url.set("form", formData.vehicleType);
+    }
+
+    setSearchParams(url);
   };
 
   const handleInputChange = (e) => {
@@ -30,6 +56,7 @@ const SearchForm = () => {
       [name]: value,
     }));
   };
+
   const handleEquipmentChange = (e) => {
     const { value, checked } = e.target;
     setFormData((prevData) => {
@@ -52,6 +79,16 @@ const SearchForm = () => {
     }));
   };
 
+  const handleReset = () => {
+    setSearchParams("");
+    setFormData({
+      location: "",
+      equipment: [],
+      vehicleType: "",
+    });
+    handleResetForm();
+  };
+
   return (
     <form className={s.form} onSubmit={handleSubmit}>
       <LocationInput
@@ -66,169 +103,68 @@ const SearchForm = () => {
       <div className={s.vehicleEquipmentGroup}>
         <p className={s.groupTitle}>Vehicle equipment</p>
         <div className={s.optionsList}>
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"AC"}
-            iconId={"wind"}
-            text={"AC"}
-            checked={formData.equipment.includes("AC")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"automatic"}
-            iconId={"diagram"}
-            text={"Automatic"}
-            checked={formData.equipment.includes("automatic")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"manual"}
-            iconId={"diagram"}
-            text={"Manual"}
-            checked={formData.equipment.includes("manual")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"kitchen"}
-            iconId={"cup"}
-            text={"Kitchen"}
-            checked={formData.equipment.includes("kitchen")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"TV"}
-            iconId={"tv"}
-            text={"TV"}
-            checked={formData.equipment.includes("TV")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"bathroom"}
-            iconId={"shower"}
-            text={"Bathroom"}
-            checked={formData.equipment.includes("bathroom")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"diesel"}
-            iconId={"fuel"}
-            text={"Diesel"}
-            checked={formData.equipment.includes("diesel")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"hybrid"}
-            iconId={"fuel"}
-            text={"Hybrid"}
-            checked={formData.equipment.includes("hybrid")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"petrol"}
-            iconId={"fuel"}
-            text={"Petrol"}
-            checked={formData.equipment.includes("petrol")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"microwave"}
-            iconId={"microwave"}
-            text={"Microwave"}
-            checked={formData.equipment.includes("microwave")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"refrigerator"}
-            iconId={"fridge"}
-            text={"Refrigerator"}
-            checked={formData.equipment.includes("refrigerator")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"radio"}
-            iconId={"radios"}
-            text={"Radio"}
-            checked={formData.equipment.includes("radio")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"water"}
-            iconId={"water"}
-            text={"Water"}
-            checked={formData.equipment.includes("water")}
-            onChange={handleEquipmentChange}
-          />
-          <FilterOption
-            type={"checkbox"}
-            name={"equipment"}
-            value={"gas"}
-            iconId={"gas"}
-            text={"Gas"}
-            checked={formData.equipment.includes("gas")}
-            onChange={handleEquipmentChange}
-          />
+          {[
+            { value: "AC", icon: "wind", text: "AC" },
+            { value: "automatic", icon: "diagram", text: "Automatic" },
+            { value: "manual", icon: "diagram", text: "Manual" },
+            { value: "kitchen", icon: "cup", text: "Kitchen" },
+            { value: "TV", icon: "tv", text: "TV" },
+            { value: "bathroom", icon: "shower", text: "Bathroom" },
+            { value: "diesel", icon: "fuel", text: "Diesel" },
+            { value: "hybrid", icon: "fuel", text: "Hybrid" },
+            { value: "petrol", icon: "fuel", text: "Petrol" },
+            { value: "microwave", icon: "microwave", text: "Microwave" },
+            { value: "refrigerator", icon: "fridge", text: "Refrigerator" },
+            { value: "radio", icon: "radios", text: "Radio" },
+            { value: "water", icon: "water", text: "Water" },
+            { value: "gas", icon: "gas", text: "Gas" },
+          ].map((opt) => (
+            <FilterOption
+              key={opt.value}
+              type={"checkbox"}
+              name={"equipment"}
+              value={opt.value}
+              iconId={opt.icon}
+              text={opt.text}
+              checked={formData.equipment.includes(opt.value)}
+              onChange={handleEquipmentChange}
+            />
+          ))}
         </div>
       </div>
 
       <div className={s.vehicleTypeGroup}>
         <p className={s.groupTitle}>Vehicle type</p>
         <div className={s.typeOptionsList}>
-          <FilterOption
-            type={"radio"}
-            name={"vehicleType"}
-            value={"panelTruck"}
-            iconId={"1x2"}
-            text={"Van"}
-            checked={formData.vehicleType === "panelTruck"}
-            onChange={handleVehicleTypeChange}
-          />
-          <FilterOption
-            type={"radio"}
-            name={"vehicleType"}
-            value={"fullyIntegrated"}
-            iconId={"grid"}
-            text={"Fully Integrated"}
-            checked={formData.vehicleType === "fullyIntegrated"}
-            onChange={handleVehicleTypeChange}
-          />
-          <FilterOption
-            type={"radio"}
-            name={"vehicleType"}
-            value={"alcove"}
-            iconId={"3x3"}
-            text={"Alcove"}
-            checked={formData.vehicleType === "alcove"}
-            onChange={handleVehicleTypeChange}
-          />
+          {[
+            { value: "panelTruck", icon: "1x2", text: "Van" },
+            {
+              value: "fullyIntegrated",
+              icon: "grid",
+              text: "Fully Integrated",
+            },
+            { value: "alcove", icon: "3x3", text: "Alcove" },
+          ].map((opt) => (
+            <FilterOption
+              key={opt.value}
+              type={"radio"}
+              name={"vehicleType"}
+              value={opt.value}
+              iconId={opt.icon}
+              text={opt.text}
+              checked={formData.vehicleType === opt.value}
+              onChange={handleVehicleTypeChange}
+            />
+          ))}
         </div>
       </div>
 
-      <CustomButton type="submit">Search</CustomButton>
+      <div className={s.buttons}>
+        <CustomButton type="submit">Search</CustomButton>
+        <CustomButton type="button" onClick={handleReset}>
+          Reset
+        </CustomButton>
+      </div>
     </form>
   );
 };

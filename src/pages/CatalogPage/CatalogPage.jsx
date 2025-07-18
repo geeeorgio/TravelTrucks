@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getLimitedListOfCampers } from "../../redux/campersAll/operations";
-import SearchForm from "../../components/SearchForm/SearchForm";
-import CampersList from "../../components/CampersList/CampersList";
-import Section from "../../components/CustomStyledComponents/Section/Section";
-import Container from "../../components/CustomStyledComponents/Container/Container";
+import toast from "react-hot-toast";
 import {
   selectAllCampersList,
   selectCampersIsLoading,
   selectTotalCampersNumber,
 } from "../../redux/campersAll/selectors";
-import CustomButton from "../../components/CustomStyledComponents/CustomButton/CustomButton";
-import s from "./CatalogPage.module.css";
+import { getCampersBySearchParams } from "../../redux/campersAll/operations";
+import { clearState } from "../../redux/campersAll/slice";
 import Loader from "../../components/Loader/Loader";
+import SearchForm from "../../components/SearchForm/SearchForm";
+import CampersList from "../../components/CampersList/CampersList";
+import Section from "../../components/CustomStyledComponents/Section/Section";
+import Container from "../../components/CustomStyledComponents/Container/Container";
+import CustomButton from "../../components/CustomStyledComponents/CustomButton/CustomButton";
+
+import s from "./CatalogPage.module.css";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
@@ -20,46 +24,55 @@ const CatalogPage = () => {
   const totalCampers = useSelector(selectTotalCampersNumber);
   const campersLoading = useSelector(selectCampersIsLoading);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [paginator, setPaginator] = useState({
     limit: 4,
     page: 1,
-    isAbleToLoad: true,
   });
+
+  const searchParamsString = searchParams.toString();
+
+  const isAbleToLoad = totalCampers > paginator.page * paginator.limit;
 
   useEffect(() => {
     dispatch(
-      getLimitedListOfCampers({ page: paginator.page, limit: paginator.limit })
+      getCampersBySearchParams({
+        page: paginator.page,
+        limit: paginator.limit,
+        params: searchParamsString,
+      })
     );
-  }, [dispatch, paginator.page, paginator.limit]);
+  }, [dispatch, paginator.page, paginator.limit, searchParamsString]);
 
   const handleLoadMore = () => {
-    setPaginator((prev) => {
-      const nextPage = prev.page + 1;
+    if (!isAbleToLoad) {
+      toast("No more campers to load", { icon: "🙌" });
+      return;
+    }
 
-      dispatch(getLimitedListOfCampers({ page: nextPage, limit: prev.limit }));
+    setPaginator((prev) => ({ ...prev, page: prev.page + 1 }));
+  };
 
-      const canLoad = totalCampers > nextPage * prev.limit;
-
-      if (!canLoad) {
-        console.log("No more campers to load");
-        return { ...prev, isAbleToLoad: false };
-      }
-
-      return { ...prev, page: nextPage };
-    });
+  const handleResetForm = () => {
+    setPaginator({ limit: 4, page: 1 });
+    dispatch(clearState());
   };
 
   return (
     <Section>
       <Container>
         <div className={s.container}>
-          <SearchForm />
+          <SearchForm
+            setSearchParams={setSearchParams}
+            handleResetForm={handleResetForm}
+          />
           {campersLoading ? (
             <Loader />
           ) : (
             <div className={s.listWrapper}>
               {campersList.length > 0 && <CampersList campers={campersList} />}
-              {!campersLoading && paginator.isAbleToLoad && (
+              {!campersLoading && isAbleToLoad && (
                 <div className={s.loadMoreWrapper}>
                   <CustomButton
                     type="button"

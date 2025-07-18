@@ -1,11 +1,17 @@
+import toast from "react-hot-toast";
 import CustomButton from "../../CustomStyledComponents/CustomButton/CustomButton";
 import s from "./BookingForm.module.css";
 
 const BookingForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!e.target.name.value.trim() || !e.target.email.value.trim()) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
 
     e.currentTarget.reset();
+    toast.success("Booking request sent!");
   };
 
   return (
