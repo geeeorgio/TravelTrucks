@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import CustomIcons from "../../CustomStyledComponents/CustomIcons/CustomIcons";
 import s from "./CamperDetailed.module.css";
 
 const CamperDetailed = ({ camper }) => {
   const reviewsNumber = camper.reviews ? camper.reviews.length : 0;
+  const linkStyle = ({ isActive }) => (isActive ? s.active : s.tabLink);
 
   return (
     <>
@@ -14,10 +15,9 @@ const CamperDetailed = ({ camper }) => {
             <div className={s.reviewsAndLocation}>
               <div className={s.rating}>
                 <CustomIcons iconId={"star"} className={s.starIcon} />
-                <span className={s.ratingNum}>{camper.rating.toFixed(1)}</span>
-                <span
-                  className={s.reviewsText}
-                >{`(${reviewsNumber} reviews)`}</span>
+                <span className={s.ratingNum}>
+                  {`${camper.rating.toFixed(1)} (${reviewsNumber} reviews)`}
+                </span>
               </div>
               <div className={s.location}>
                 <CustomIcons iconId={"map"} className={s.mapIcon} />
@@ -45,12 +45,12 @@ const CamperDetailed = ({ camper }) => {
 
       <div className={s.tabsSection}>
         <div className={s.tabsWrapper}>
-          <Link to="features" className={s.tabLink}>
+          <NavLink to="features" className={linkStyle}>
             Features
-          </Link>
-          <Link to="reviews" className={s.tabLink}>
+          </NavLink>
+          <NavLink to="reviews" className={linkStyle}>
             Reviews
-          </Link>
+          </NavLink>
         </div>
       </div>
     </>

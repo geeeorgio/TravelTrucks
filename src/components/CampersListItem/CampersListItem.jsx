@@ -1,15 +1,29 @@
+import { useDispatch, useSelector } from "react-redux";
+import { selectFavoriteCampers } from "../../redux/camperSelected/selectors";
+import { addFavorite, removeFavorite } from "../../redux/camperSelected/slice";
 import CustomButton from "../CustomStyledComponents/CustomButton/CustomButton";
 import CustomIcons from "../CustomStyledComponents/CustomIcons/CustomIcons";
+
 import s from "./CampersListItem.module.css";
 
 const CampersListItem = ({ item }) => {
+  const dispatch = useDispatch();
+  const camper = item;
+  const favoriteList = useSelector(selectFavoriteCampers);
+
+  const isFavorite = favoriteList.some((favorite) => favorite.id === camper.id);
+
+  const handleToggleFavorite = () => {
+    isFavorite
+      ? dispatch(removeFavorite(camper.id))
+      : dispatch(addFavorite(camper));
+  };
+
+  const reviewsNumber = camper.reviews ? camper.reviews.length : 0;
+
   const {
     description,
     name,
-    price,
-    rating,
-    reviews,
-    location,
     kitchen,
     microwave,
     radio,
@@ -25,7 +39,6 @@ const CampersListItem = ({ item }) => {
   } = item;
 
   const imgUrl = gallery[0]?.thumb;
-  const reviewsNumber = reviews ? reviews.length : 0;
 
   return (
     <li className={s.item}>
@@ -41,23 +54,28 @@ const CampersListItem = ({ item }) => {
         <div className={s.infoWrapper}>
           <div className={s.infoContainer}>
             <div className={s.mainInfo}>
-              <p className={s.name}>{name}</p>
+              <p className={s.name}>{camper.name}</p>
               <div className={s.priceInfo}>
-                <p className={s.price}>€{price.toFixed(2)}</p>
-                <CustomIcons className={s.likeIcon} iconId={"like"} />
+                <p className={s.price}>€{camper.price.toFixed(2)}</p>
+                <button type="button" onClick={handleToggleFavorite}>
+                  <CustomIcons
+                    className={isFavorite ? s.liked : s.likeIcon}
+                    iconId={"like"}
+                  />
+                </button>
               </div>
             </div>
             <div className={s.secondaryInfo}>
               <div className={s.rating}>
                 <CustomIcons className={s.starIcon} iconId={"star"} />
-                <span className={s.ratingNum}>{rating.toFixed(1)}</span>
+                <span className={s.ratingNum}>{camper.rating.toFixed(1)}</span>
                 <span
                   className={s.reviewsNum}
                 >{`(${reviewsNumber} reviews)`}</span>
               </div>
               <div className={s.location}>
                 <CustomIcons className={s.locationIcon} iconId={"map"} />
-                <span className={s.locationText}>{location}</span>
+                <span className={s.locationText}>{camper.location}</span>
               </div>
             </div>
           </div>

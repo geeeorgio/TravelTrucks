@@ -36,13 +36,21 @@ const CatalogPage = () => {
   const isAbleToLoad = totalCampers > paginator.page * paginator.limit;
 
   useEffect(() => {
-    dispatch(
-      getCampersBySearchParams({
-        page: paginator.page,
-        limit: paginator.limit,
-        params: searchParamsString,
-      })
-    );
+    const fetchCampers = async () => {
+      try {
+        await dispatch(
+          getCampersBySearchParams({
+            page: paginator.page,
+            limit: paginator.limit,
+            params: searchParamsString,
+          })
+        ).unwrap();
+      } catch {
+        toast.error("No campers found for these filters 😞");
+      }
+    };
+
+    fetchCampers();
   }, [dispatch, paginator.page, paginator.limit, searchParamsString]);
 
   const handleLoadMore = () => {
@@ -71,6 +79,11 @@ const CatalogPage = () => {
             <Loader />
           ) : (
             <div className={s.listWrapper}>
+              {!campersLoading && campersList.length === 0 && (
+                <p className={s.noResults}>
+                  No campers match these filters. Try changing filters 😞
+                </p>
+              )}
               {campersList.length > 0 && <CampersList campers={campersList} />}
               {!campersLoading && isAbleToLoad && (
                 <div className={s.loadMoreWrapper}>

@@ -7,35 +7,35 @@ const CamperReviews = () => {
   const camper = useSelector(selectCamperDetails);
 
   return (
-    <div className={s.reviewsSection}>
-      <div className={s.reviewsList}>
+    <div className={s.section}>
+      <ul className={s.list}>
         {camper.reviews.map((review, index) => (
-          <div key={index} className={s.reviewItem}>
-            <div className={s.reviewerInfo}>
-              <div className={s.reviewerAvatar}>
-                {review.reviewerName ? review.reviewerName[0] : "U"}
-              </div>
-              <div className={s.reviewerDetails}>
-                <p className={s.reviewerName}>
-                  {review.reviewerName || "User"}
+          <li key={index} className={s.item}>
+            <div className={s.info}>
+              <div className={s.avatar}>
+                <p className={s.userInitials}>
+                  {review.reviewer_name ? review.reviewer_name[0] : "U"}
                 </p>
-                <div className={s.reviewRating}>
+              </div>
+              <div className={s.details}>
+                <p className={s.name}>{review.reviewer_name || "User"}</p>
+                <div className={s.rating}>
                   {Array.from({ length: 5 }).map((_, i) => (
                     <CustomIcons
                       key={i}
                       iconId={"star"}
                       className={
-                        i < review.reviewerRating ? s.filledStar : s.emptyStar
+                        i < review.reviewer_rating ? s.filledStar : s.emptyStar
                       }
                     />
                   ))}
                 </div>
               </div>
             </div>
-            <p className={s.reviewComment}>{review.comment}</p>
-          </div>
+            <p className={s.comment}>{review.comment}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

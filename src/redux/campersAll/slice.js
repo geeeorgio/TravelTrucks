@@ -29,7 +29,7 @@ const slice = createSlice({
         state.paginated = payload.items;
 
         const newItems = payload.items.filter(
-          (camper) => !state.items.some((existing) => existing.id === camper.id)
+          (item) => !state.items.some((camper) => camper.id === item.id)
         );
         state.items.push(...newItems);
 

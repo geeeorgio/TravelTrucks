@@ -11,16 +11,16 @@ const SearchForm = ({ setSearchParams, handleResetForm }) => {
     location: "",
     equipment: [],
     vehicleType: "",
+    engineType: "",
+    transmissionType: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      !formData.vehicleType &&
-      formData.equipment.length === 0 &&
-      !formData.location
-    ) {
-      toast("Please select something first", { icon: "🔍" });
+    if (!formData.vehicleType && formData.equipment.length === 0) {
+      toast("Please select vehicle type and at least one equipment item", {
+        icon: "🔍",
+      });
       return;
     }
 
@@ -33,17 +33,19 @@ const SearchForm = ({ setSearchParams, handleResetForm }) => {
     }
 
     formData.equipment.forEach((item) => {
-      if (item === "hybrid" || item === "diesel" || item === "petrol") {
-        url.append("engine", item);
-      } else if (item === "automatic" || item === "manual") {
-        url.append("transmission", item);
-      } else {
-        url.append(item, true);
-      }
+      url.append(item, true);
     });
 
     if (formData.vehicleType) {
       url.set("form", formData.vehicleType);
+    }
+
+    if (formData.engineType) {
+      url.set("engine", formData.engineType);
+    }
+
+    if (formData.transmissionType) {
+      url.set("transmission", formData.transmissionType);
     }
 
     setSearchParams(url);
@@ -79,12 +81,30 @@ const SearchForm = ({ setSearchParams, handleResetForm }) => {
     }));
   };
 
+  const handleEngineTypeChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      engineType: value,
+    }));
+  };
+
+  const handleTransmissionTypeChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      transmissionType: value,
+    }));
+  };
+
   const handleReset = () => {
     setSearchParams("");
     setFormData({
       location: "",
       equipment: [],
       vehicleType: "",
+      engineType: "",
+      transmissionType: "",
     });
     handleResetForm();
   };
@@ -105,14 +125,9 @@ const SearchForm = ({ setSearchParams, handleResetForm }) => {
         <div className={s.optionsList}>
           {[
             { value: "AC", icon: "wind", text: "AC" },
-            { value: "automatic", icon: "diagram", text: "Automatic" },
-            { value: "manual", icon: "diagram", text: "Manual" },
             { value: "kitchen", icon: "cup", text: "Kitchen" },
             { value: "TV", icon: "tv", text: "TV" },
             { value: "bathroom", icon: "shower", text: "Bathroom" },
-            { value: "diesel", icon: "fuel", text: "Diesel" },
-            { value: "hybrid", icon: "fuel", text: "Hybrid" },
-            { value: "petrol", icon: "fuel", text: "Petrol" },
             { value: "microwave", icon: "microwave", text: "Microwave" },
             { value: "refrigerator", icon: "fridge", text: "Refrigerator" },
             { value: "radio", icon: "radios", text: "Radio" },
@@ -154,6 +169,49 @@ const SearchForm = ({ setSearchParams, handleResetForm }) => {
               text={opt.text}
               checked={formData.vehicleType === opt.value}
               onChange={handleVehicleTypeChange}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className={s.engineTypeGroup}>
+        <p className={s.groupTitle}>Engine type</p>
+        <div className={s.typeOptionsList}>
+          {[
+            { value: "diesel", icon: "fuel", text: "Diesel" },
+            { value: "hybrid", icon: "fuel", text: "Hybrid" },
+            { value: "petrol", icon: "fuel", text: "Petrol" },
+          ].map((opt) => (
+            <FilterOption
+              key={opt.value}
+              type={"radio"}
+              name={"engineType"}
+              value={opt.value}
+              iconId={opt.icon}
+              text={opt.text}
+              checked={formData.engineType === opt.value}
+              onChange={handleEngineTypeChange}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className={s.transmissionTypeGroup}>
+        <p className={s.groupTitle}>Transmission type</p>
+        <div className={s.typeOptionsList}>
+          {[
+            { value: "automatic", icon: "diagram", text: "Automatic" },
+            { value: "manual", icon: "diagram", text: "Manual" },
+          ].map((opt) => (
+            <FilterOption
+              key={opt.value}
+              type={"radio"}
+              name={"transmissionType"}
+              value={opt.value}
+              iconId={opt.icon}
+              text={opt.text}
+              checked={formData.transmissionType === opt.value}
+              onChange={handleTransmissionTypeChange}
             />
           ))}
         </div>

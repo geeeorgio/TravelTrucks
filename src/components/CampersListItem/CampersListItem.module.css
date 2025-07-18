@@ -50,6 +50,7 @@
     min-width: 0;
 }
 
+
 .infoContainer {
     width: 100%;
     display: flex;
@@ -81,6 +82,11 @@
 .likeIcon {
     width: 25px;
     height: 25px;
+}
+
+.liked {
+    composes: likeIcon;
+    fill: var(--color-button);
 }
 
 .name,

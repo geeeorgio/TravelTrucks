@@ -1,0 +1,92 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 631px;
+}
+
+.list {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 44px;
+}
+
+.item {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 60px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-badges);
+    ;
+}
+
+.userInitials {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.33;
+    color: var(--color-button);
+}
+
+.details {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-main);
+}
+
+.rating {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.comment {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-text);
+}
+
+.emptyStar {
+    width: 16px;
+    height: 16px;
+    fill: var(--color-badges);
+}
+
+.filledStar {
+    composes: emptyStar;
+    fill: var(--color-rating)
+}
