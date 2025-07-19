@@ -98,7 +98,6 @@
 
 @media screen and (min-width: 1440px) {
     .filterOption {
-        /* border: 1px solid var(--color-gray-light); */
         border-radius: 10px;
         padding: 16px 12px;
 

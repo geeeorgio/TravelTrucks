@@ -1,8 +1,32 @@
 import toast from "react-hot-toast";
 import CustomButton from "../../CustomStyledComponents/CustomButton/CustomButton";
 import s from "./BookingForm.module.css";
+import Calendar from "./Calendar/Calendar";
+import { useState } from "react";
 
 const BookingForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    date: null,
+    comment: "",
+  });
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleDateChange = (date) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      date: date,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!e.target.name.value.trim() || !e.target.email.value.trim()) {
@@ -10,7 +34,15 @@ const BookingForm = () => {
       return;
     }
 
+    if (!formData.date) {
+      toast.error("Please select a booking date");
+      return;
+    }
+
+    console.log("Booking data:", formData);
+
     e.currentTarget.reset();
+    setFormData({ name: "", email: "", date: null, comment: "" });
     toast.success("Booking request sent!");
   };
 
@@ -29,7 +61,9 @@ const BookingForm = () => {
               type="text"
               id="name"
               name="name"
-              placeholder="Name"
+              value={formData.name}
+              onChange={handleFormChange}
+              placeholder="Name*"
               className={s.input}
             />
           </label>
@@ -38,24 +72,27 @@ const BookingForm = () => {
               type="email"
               id="email"
               name="email"
-              placeholder="Email"
+              placeholder="Email*"
+              value={formData.email}
+              onChange={handleFormChange}
               className={s.input}
             />
           </label>
-          <label htmlFor="email" className={s.label}>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              placeholder="Booking Date"
-              className={s.input}
+
+          <label htmlFor="date" className={s.label}>
+            <Calendar
+              selectedDate={formData.date}
+              setSelectedDate={handleDateChange}
             />
           </label>
+
           <label htmlFor="comment" className={s.label}>
             <textarea
               id="comment"
               name="comment"
-              placeholder="Comment"
+              value={formData.comment}
+              onChange={handleFormChange}
+              placeholder="Comment*"
               className={`${s.input} ${s.textarea}`}
             ></textarea>
           </label>

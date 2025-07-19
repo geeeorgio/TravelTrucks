@@ -1,4 +1,4 @@
-import CustomIcons from "../../CustomStyledComponents/CustomIcons/CustomIcons";
+import CustomIcons from "../../../CustomStyledComponents/CustomIcons/CustomIcons";
 import s from "./LocationInput.module.css";
 
 const LocationInput = ({ placeholder, iconId, value, onChange }) => (

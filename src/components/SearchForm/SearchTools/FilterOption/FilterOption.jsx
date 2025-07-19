@@ -1,4 +1,4 @@
-import CustomIcons from "../../CustomStyledComponents/CustomIcons/CustomIcons";
+import CustomIcons from "../../../CustomStyledComponents/CustomIcons/CustomIcons";
 import s from "./FilterOption.module.css";
 
 const FilterOption = ({
@@ -24,7 +24,7 @@ const FilterOption = ({
         checked={checked}
         onChange={onChange}
       />
-      
+
       <CustomIcons className={s.filterIcon} iconId={iconId} />
       <span>{text}</span>
     </label>

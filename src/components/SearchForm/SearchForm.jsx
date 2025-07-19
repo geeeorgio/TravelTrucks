@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import FilterOption from "../SearchTools/FilterOption/FilterOption";
-import LocationInput from "../SearchTools/LocationInput/LocationInput";
+import FilterOption from "./SearchTools/FilterOption/FilterOption";
+import LocationInput from "./SearchTools/LocationInput/LocationInput";
 import CustomButton from "../CustomStyledComponents/CustomButton/CustomButton";
 
 import s from "./SearchForm.module.css";
