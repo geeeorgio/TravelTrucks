@@ -39,8 +39,6 @@ const BookingForm = () => {
       return;
     }
 
-    console.log("Booking data:", formData);
-
     e.currentTarget.reset();
     setFormData({ name: "", email: "", date: null, comment: "" });
     toast.success("Booking request sent!");
