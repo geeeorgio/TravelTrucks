@@ -1,77 +1,54 @@
 .mainWrapper {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 20px;
 }
 
 .headerInfo {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .name,
 .price {
     font-weight: 600;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1.33;
     color: var(--color-main);
 }
 
 .infoWrapper {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .reviewsAndLocation {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 16px;
+    flex-direction: column;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .rating,
 .location {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    gap: 4px;
+    gap: 3px;
 }
 
-.starIcon {
-    fill: var(--color-rating);
-    width: 16px;
-    height: 16px;
-}
-
+.starIcon,
 .mapIcon {
-    composes: starIcon;
-    fill: var(--color-main);
-}
-
-.ratingNum {
-    text-decoration: underline;
-    text-decoration-skip-ink: none;
+    width: 14px;
+    height: 14px;
 }
 
 .ratingNum,
-.reviewsText {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    color: var(--color-main);
-}
-
+.reviewsText,
 .locationText {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
     color: var(--color-main);
 }
@@ -79,15 +56,14 @@
 .imageGallery {
     width: 100%;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 16px;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .galleryImageContainer {
     width: 100%;
-    border-radius: 10px;
+    height: 200px;
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -100,7 +76,7 @@
 }
 
 .description {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
     color: var(--color-text);
@@ -110,24 +86,22 @@
 .tabsSection {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
     flex-direction: column;
-    gap: 24px;
-    padding-bottom: 24px;
-    margin: 60px 0 44px 0;
+    gap: 20px;
+    padding-bottom: 20px;
+    margin: 40px 0 30px 0;
     border-bottom: 1px solid var(--color-gray-light);
 }
 
 .tabsWrapper {
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 40px;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .tabLink {
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.2;
     color: var(--color-main);
     text-decoration: none;
@@ -141,11 +115,236 @@
     &::after {
         content: '';
         position: absolute;
-        bottom: -27px;
+        bottom: -15px;
         left: 0;
         width: 100%;
-        height: 5px;
+        height: 4px;
         background-color: var(--color-button);
         border-radius: 2px;
+    }
+}
+
+@media screen and (min-width: 375px) {
+    .mainWrapper {
+        gap: 24px;
+    }
+
+    .headerInfo {
+        gap: 7px;
+    }
+
+    .name,
+    .price {
+        font-size: 22px;
+    }
+
+    .infoWrapper {
+        gap: 14px;
+    }
+
+    .reviewsAndLocation {
+        gap: 12px;
+        flex-direction: row;
+    }
+
+    .rating,
+    .location {
+        gap: 4px;
+    }
+
+    .starIcon,
+    .mapIcon {
+        width: 15px;
+        height: 15px;
+    }
+
+    .ratingNum,
+    .reviewsText,
+    .locationText {
+        font-size: 15px;
+    }
+
+    .imageGallery {
+        gap: 14px;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .galleryImageContainer {
+        width: calc((100% - 14px) / 2);
+        height: 180px;
+        border-radius: 9px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+
+    .tabsSection {
+        gap: 22px;
+        padding-bottom: 22px;
+        margin: 50px 0 38px 0;
+    }
+
+    .tabsWrapper {
+        flex-direction: row;
+        gap: 30px;
+    }
+
+    .tabLink {
+        font-size: 19px;
+    }
+
+    .active::after {
+        bottom: -20px;
+        height: 4px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .mainWrapper {
+        gap: 28px;
+    }
+
+    .headerInfo {
+        gap: 8px;
+    }
+
+    .name,
+    .price {
+        font-size: 24px;
+    }
+
+    .infoWrapper {
+        gap: 16px;
+    }
+
+    .reviewsAndLocation {
+        gap: 16px;
+    }
+
+    .rating,
+    .location {
+        gap: 4px;
+    }
+
+    .starIcon,
+    .mapIcon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .ratingNum,
+    .reviewsText,
+    .locationText {
+        font-size: 16px;
+    }
+
+    .imageGallery {
+        gap: 16px;
+    }
+
+    .galleryImageContainer {
+        width: calc((100% - 2 * 16px) / 3);
+        height: 160px;
+        border-radius: 10px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    .tabsSection {
+        gap: 24px;
+        padding-bottom: 24px;
+        margin: 60px 0 44px 0;
+    }
+
+    .tabsWrapper {
+        gap: 40px;
+    }
+
+    .tabLink {
+        font-size: 20px;
+    }
+
+    .active::after {
+        bottom: -27px;
+        height: 5px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    .mainWrapper {
+        gap: 28px;
+    }
+
+    .headerInfo {
+        gap: 8px;
+    }
+
+    .name,
+    .price {
+        font-size: 24px;
+    }
+
+    .infoWrapper {
+        gap: 16px;
+    }
+
+    .reviewsAndLocation {
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .rating,
+    .location {
+        gap: 4px;
+    }
+
+    .starIcon,
+    .mapIcon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .ratingNum,
+    .reviewsText,
+    .locationText {
+        font-size: 16px;
+    }
+
+    .imageGallery {
+        gap: 16px;
+    }
+
+    .galleryImageContainer {
+        width: calc((100% - 2 * 16px) / 3);
+        height: 200px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    .tabsSection {
+        gap: 24px;
+        padding-bottom: 24px;
+        margin: 60px 0 44px 0;
+    }
+
+    .tabsWrapper {
+        flex-direction: row;
+        gap: 40px;
+    }
+
+    .tabLink {
+        font-size: 20px;
+    }
+
+    .active::after {
+        bottom: -27px;
+        height: 5px;
     }
 }

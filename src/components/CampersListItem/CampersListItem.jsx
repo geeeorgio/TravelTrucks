@@ -106,7 +106,7 @@ const CampersListItem = ({ item }) => {
             {engine && (
               <div className={s.tagItem}>
                 <CustomIcons iconId={"fuel"} />
-                <span>Petrol</span>
+                <span>{engine[0].toUpperCase().concat(engine.slice(1))}</span>
               </div>
             )}
             {bathroom && (

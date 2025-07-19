@@ -1,64 +1,175 @@
 .form {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 32px;
-    width: 360px;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
     flex-shrink: 0;
-    min-width: 360px;
 }
 
 .filtersTitle {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.5;
     color: var(--color-text);
     margin: 0;
+    text-align: center;
+    width: 100%;
 }
 
 .vehicleEquipmentGroup,
 .vehicleTypeGroup,
 .engineTypeGroup,
 .transmissionTypeGroup {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 12px;
+    flex: 1 1 calc((100% - 16px) / 2);
+    min-width: 210px;
 }
 
 .groupTitle {
-
     font-weight: 600;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.2;
     color: var(--color-main);
-
     position: relative;
-    padding-bottom: 24px;
+    padding-bottom: 12px;
     margin: 0;
+    text-align: center;
+}
 
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background-color: var(--color-gray-light);
-    }
+.groupTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-gray-light);
 }
 
 .optionsList,
 .typeOptionsList {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 12px;
+    gap: 8px;
+    justify-content: center;
 }
 
 .buttons {
     width: 100%;
     display: flex;
+    flex-direction: column;
+    gap: 12px;
     align-items: center;
-    justify-content: space-between;
-    align-content: center;
+    justify-content: center;
+}
+
+@media screen and (min-width: 375px) {
+    .form {
+        gap: 18px;
+    }
+
+    .vehicleEquipmentGroup,
+    .vehicleTypeGroup,
+    .engineTypeGroup,
+    .transmissionTypeGroup {
+        flex: 1 1 calc((100% - 18px) / 2);
+        min-width: 280px;
+    }
+
+    .groupTitle {
+        font-size: 17px;
+        padding-bottom: 14px;
+    }
+
+    .buttons {
+        flex-direction: row;
+        gap: 10px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .form {
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .vehicleEquipmentGroup,
+    .vehicleTypeGroup,
+    .engineTypeGroup,
+    .transmissionTypeGroup {
+        flex: 1 1 calc((100% - 20px) / 2);
+        max-width: calc((100% - 20px) / 2);
+        min-width: 140px;
+    }
+
+    .groupTitle {
+        text-align: left;
+    }
+
+    .optionsList,
+    .typeOptionsList {
+        justify-content: flex-start;
+        gap: 8px 10px;
+    }
+
+    .buttons {
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .form {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 24px;
+        width: 360px;
+        min-width: 360px;
+        padding: 0;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .vehicleEquipmentGroup,
+    .vehicleTypeGroup,
+    .engineTypeGroup,
+    .transmissionTypeGroup {
+        width: 100%;
+        gap: 18px;
+        flex: none;
+        min-width: auto;
+        max-width: none;
+    }
+
+    .filtersTitle {
+        text-align: left;
+    }
+
+    .groupTitle {
+        font-size: 18px;
+        padding-bottom: 18px;
+        text-align: left;
+    }
+
+    .buttons {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .form {
+        gap: 32px;
+    }
+
+    .groupTitle {
+        font-size: 20px;
+        padding-bottom: 20px;
+    }
 }

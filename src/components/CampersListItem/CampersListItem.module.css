@@ -1,35 +1,36 @@
 .item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
 
     border: 1px solid var(--color-gray-light);
-    border-radius: 20px;
-    padding: 24px;
+    border-radius: 16px;
+    padding: 16px;
 
     background-color: var(--color-white);
 
-    max-width: 888px;
+    max-width: 100%;
     width: 100%;
 }
 
 .wrapper {
     width: 100%;
     display: flex;
+    /* align-items: center; */
     align-items: stretch;
     justify-content: flex-start;
-    flex-direction: row;
-    gap: 24px;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .imageContainer {
     flex-shrink: 0;
-    width: 292px;
-    border-radius: 10px;
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
     overflow: hidden;
-    height: auto;
 }
 
 .image {
@@ -45,11 +46,10 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
     flex-grow: 1;
     min-width: 0;
 }
-
 
 .infoContainer {
     width: 100%;
@@ -57,7 +57,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     flex-grow: 1;
     min-width: 0;
 }
@@ -74,14 +74,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-direction: row;
-    gap: 12px;
+    gap: 8px;
 }
 
 .likeIcon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
 }
 
 .liked {
@@ -92,7 +91,7 @@
 .name,
 .price {
     font-weight: 600;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 1.33;
     color: var(--color-main);
 }
@@ -102,7 +101,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: row;
-    gap: 16px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
@@ -112,12 +111,12 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    gap: 4px;
+    gap: 3px;
 }
 
 .starIcon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     fill: var(--color-rating);
 }
 
@@ -130,16 +129,22 @@
 .reviewsNum,
 .locationText {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
     color: var(--color-main);
 }
 
 .description {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
     color: var(--color-text);
+    max-height: 4.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .tags {
@@ -147,7 +152,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
 }
 
 .tagItem {
@@ -155,16 +160,375 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: row;
-    gap: 8px;
+    gap: 6px;
 
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
     text-align: center;
     color: var(--color-main);
 
-    border-radius: 100px;
-    padding: 12px 18px;
+    border-radius: 80px;
+    padding: 8px 12px;
     background-color: var(--color-badges);
     mix-blend-mode: multiply;
+}
+
+@media screen and (min-width: 375px) {
+    .item {
+        gap: 18px;
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .wrapper {
+        gap: 18px;
+    }
+
+    .imageContainer {
+        height: 220px;
+        border-radius: 9px;
+    }
+
+    .infoWrapper {
+        gap: 18px;
+    }
+
+    .infoContainer {
+        gap: 7px;
+    }
+
+    .priceInfo {
+        gap: 10px;
+    }
+
+    .likeIcon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .name,
+    .price {
+        font-size: 20px;
+    }
+
+    .secondaryInfo {
+        gap: 12px;
+    }
+
+    .rating,
+    .location {
+        gap: 4px;
+    }
+
+    .starIcon,
+    .locationIcon {
+        width: 15px;
+        height: 15px;
+    }
+
+    .ratingNum,
+    .reviewsNum,
+    .locationText,
+    .description {
+        font-size: 15px;
+    }
+
+    .tags {
+        gap: 7px;
+    }
+
+    .tagItem {
+        gap: 7px;
+        font-size: 15px;
+        border-radius: 90px;
+        padding: 10px 15px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .item {
+        gap: 20px;
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .wrapper {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .imageContainer {
+        width: 290px;
+        height: auto;
+        border-radius: 10px;
+        flex-shrink: 0;
+    }
+
+    .infoWrapper {
+        gap: 20px;
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+    .infoContainer {
+        gap: 8px;
+    }
+
+    .priceInfo {
+        gap: 12px;
+    }
+
+    .likeIcon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .name,
+    .price {
+        font-size: 22px;
+    }
+
+    .secondaryInfo {
+        gap: 14px;
+    }
+
+    .rating,
+    .location {
+        gap: 4px;
+    }
+
+    .starIcon,
+    .locationIcon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .ratingNum,
+    .reviewsNum,
+    .locationText {
+        font-size: 16px;
+    }
+
+    .description {
+        font-size: 16px;
+        max-height: 3em;
+        -webkit-line-clamp: 2;
+    }
+
+    .tags {
+        gap: 8px;
+    }
+
+    .tagItem {
+        gap: 8px;
+        font-size: 16px;
+        border-radius: 100px;
+        padding: 12px 18px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .item {
+        gap: 22px;
+        padding: 22px;
+    }
+
+    .wrapper {
+        gap: 22px;
+    }
+
+    .imageContainer {
+        width: 290px;
+    }
+
+    .infoWrapper {
+        gap: 22px;
+    }
+
+    .name,
+    .price {
+        font-size: 23px;
+    }
+
+    .secondaryInfo {
+        gap: 15px;
+    }
+
+    .description {
+        max-height: 4.5em;
+        -webkit-line-clamp: 3;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .item {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 24px;
+
+        border: 1px solid var(--color-gray-light);
+        border-radius: 20px;
+        padding: 24px;
+
+        background-color: var(--color-white);
+
+        width: 100%;
+    }
+
+    .wrapper {
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .imageContainer {
+        flex-shrink: 0;
+        width: 290px;
+        border-radius: 10px;
+        overflow: hidden;
+        /* height: 200px; */
+    }
+
+    .image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .infoWrapper {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 24px;
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+    .infoContainer {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+    .mainInfo {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .priceInfo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .likeIcon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .liked {
+        composes: likeIcon;
+        fill: var(--color-button);
+    }
+
+    .name,
+    .price {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 1.33;
+        color: var(--color-main);
+    }
+
+    .secondaryInfo {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: row;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .rating,
+    .location {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .starIcon {
+        width: 16px;
+        height: 16px;
+        fill: var(--color-rating);
+    }
+
+    .locationIcon {
+        composes: starIcon;
+        fill: var(--color-main);
+    }
+
+    .ratingNum,
+    .reviewsNum,
+    .locationText {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--color-main);
+    }
+
+    .description {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--color-text);
+    }
+
+    .tags {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .tagItem {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+        gap: 8px;
+
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.5;
+        text-align: center;
+        color: var(--color-main);
+
+        border-radius: 100px;
+        padding: 12px 18px;
+        background-color: var(--color-badges);
+        mix-blend-mode: multiply;
+    }
 }

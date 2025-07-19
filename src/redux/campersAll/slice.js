@@ -3,7 +3,6 @@ import { getAllCampers, getCampersBySearchParams } from "./operations";
 
 const initialState = {
   items: [],
-  paginated: [],
   total: null,
   isLoading: false,
   isError: false,
@@ -24,17 +23,23 @@ const slice = createSlice({
         state.items = payload.items;
         state.total = payload.total;
       })
-      .addCase(getCampersBySearchParams.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.paginated = payload.items;
+      .addCase(
+        getCampersBySearchParams.fulfilled,
+        (state, { payload, meta }) => {
+          state.isLoading = false;
+          const { page } = meta.arg;
 
-        const newItems = payload.items.filter(
-          (item) => !state.items.some((camper) => camper.id === item.id)
-        );
-        state.items.push(...newItems);
-
-        state.total = payload.total;
-      })
+          if (page === 1) {
+            state.items = payload.items;
+          } else {
+            const newItems = payload.items.filter(
+              (item) => !state.items.some((camper) => camper.id === item.id)
+            );
+            state.items.push(...newItems);
+          }
+          state.total = payload.total;
+        }
+      )
 
       .addMatcher(
         isAnyOf(getAllCampers.pending, getCampersBySearchParams.pending),

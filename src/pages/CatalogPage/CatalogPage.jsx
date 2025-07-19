@@ -35,6 +35,29 @@ const CatalogPage = () => {
 
   const isAbleToLoad = totalCampers > paginator.page * paginator.limit;
 
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const showSearchForm = (isMobile && isFormOpen) || !isMobile;
+
+  const toggleForm = () => {
+    setIsFormOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     const fetchCampers = async () => {
       try {
@@ -71,21 +94,37 @@ const CatalogPage = () => {
     <Section>
       <Container>
         <div className={s.container}>
-          <SearchForm
-            setSearchParams={setSearchParams}
-            handleResetForm={handleResetForm}
-          />
+          {isMobile && (
+            <button
+              type="button"
+              className={s.filterButton}
+              onClick={toggleForm}
+            >
+              {isFormOpen ? "Hide filters" : "Show filters"}
+            </button>
+          )}
+
+          {showSearchForm && (
+            <SearchForm
+              setSearchParams={setSearchParams}
+              handleResetForm={handleResetForm}
+            />
+          )}
+
           {campersLoading ? (
             <Loader />
           ) : (
             <div className={s.listWrapper}>
-              {!campersLoading && campersList.length === 0 && (
+              {campersList.length === 0 ? (
                 <p className={s.noResults}>
-                  No campers match these filters. Try changing filters 😞
+                  {searchParamsString
+                    ? "No campers match these filters. Try changing filters 😞"
+                    : "No campers found in our catalog. Please try again later. 😞"}
                 </p>
+              ) : (
+                <CampersList campers={campersList} />
               )}
-              {campersList.length > 0 && <CampersList campers={campersList} />}
-              {!campersLoading && isAbleToLoad && (
+              {isAbleToLoad && (
                 <div className={s.loadMoreWrapper}>
                   <CustomButton
                     type="button"

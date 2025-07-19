@@ -17,9 +17,15 @@ const SearchForm = ({ setSearchParams, handleResetForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.vehicleType && formData.equipment.length === 0) {
-      toast("Please select vehicle type and at least one equipment item", {
-        icon: "🔍",
+    if (
+      !formData.location &&
+      !formData.engineType &&
+      !formData.vehicleType &&
+      !formData.transmissionType &&
+      formData.equipment.length === 0
+    ) {
+      toast.error("Please choose at least one parameter to search.", {
+        icon: "❗",
       });
       return;
     }
@@ -32,9 +38,11 @@ const SearchForm = ({ setSearchParams, handleResetForm }) => {
       url.set("location", formData.location);
     }
 
-    formData.equipment.forEach((item) => {
-      url.append(item, true);
-    });
+    if (formData.equipment.length > 0) {
+      formData.equipment.forEach((item) => {
+        url.append(item, true);
+      });
+    }
 
     if (formData.vehicleType) {
       url.set("form", formData.vehicleType);
@@ -98,6 +106,16 @@ const SearchForm = ({ setSearchParams, handleResetForm }) => {
   };
 
   const handleReset = () => {
+    if (
+      !formData.location &&
+      !formData.engineType &&
+      !formData.vehicleType &&
+      !formData.transmissionType &&
+      formData.equipment.length === 0
+    ) {
+      toast("Form is already empty!", { icon: "👍" });
+      return;
+    }
     setSearchParams("");
     setFormData({
       location: "",

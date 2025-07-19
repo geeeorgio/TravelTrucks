@@ -13,20 +13,12 @@ import storage from "redux-persist/lib/storage";
 import { campersReducer } from "./campersAll/slice";
 import { detailsReducer } from "./camperSelected/slice";
 
-const campersPersistConfig = {
-  key: "campers",
-  storage,
-};
-
 const detailsPersistConfig = {
   key: "details",
   storage,
+  whitelist: "favorite",
 };
 
-const persistedAllCampersReducer = persistReducer(
-  campersPersistConfig,
-  campersReducer
-);
 const persistedSelectedCampersReducer = persistReducer(
   detailsPersistConfig,
   detailsReducer
@@ -34,7 +26,7 @@ const persistedSelectedCampersReducer = persistReducer(
 
 const store = configureStore({
   reducer: {
-    campers: persistedAllCampersReducer,
+    campers: campersReducer,
     details: persistedSelectedCampersReducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -1,36 +1,30 @@
 .bookingFormWrapper {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    gap: 24px;
-
+    gap: 20px;
     border: 1px solid var(--color-gray-light);
-    border-radius: 10px;
-    padding: 44px;
-    max-width: 641px;
+    border-radius: 8px;
+    padding: 24px;
     width: 100%;
 }
 
 .formHeader {
     width: 100%;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .bookingFormTitle {
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.2;
     color: var(--color-main);
 }
 
 .bookingFormDescription {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
     color: var(--color-gray);
 }
@@ -38,39 +32,160 @@
 .formWrapper {
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
 }
 
 .form {
     width: 100%;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
+
+    button {
+        display: flex;
+    }
 }
 
 .label {
     width: 100%;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .input {
     width: 100%;
-    border-radius: 12px;
-    padding: 18px 0;
-
+    border-radius: 10px;
+    padding: 14px 18px;
     background-color: var(--color-inputs);
+    box-sizing: border-box;
+    font-size: 14px;
 }
 
 .textarea {
-    width: 100%;
+    min-height: 100px;
     resize: none;
+}
+
+@media screen and (min-width: 375px) {
+    .bookingFormWrapper {
+        gap: 22px;
+        padding: 28px;
+        border-radius: 9px;
+    }
+
+    .formHeader {
+        gap: 7px;
+    }
+
+    .bookingFormTitle {
+        font-size: 19px;
+    }
+
+    .bookingFormDescription {
+        font-size: 15px;
+    }
+
+    .formWrapper {
+        gap: 22px;
+    }
+
+    .form {
+        gap: 13px;
+    }
+
+    .label {
+        gap: 9px;
+    }
+
+    .input {
+        border-radius: 11px;
+        padding: 16px 20px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .bookingFormWrapper {
+        gap: 24px;
+        padding: 36px;
+        border-radius: 10px;
+    }
+
+    .formHeader {
+        gap: 8px;
+    }
+
+    .bookingFormTitle {
+        font-size: 20px;
+    }
+
+    .bookingFormDescription {
+        font-size: 16px;
+    }
+
+    .formWrapper {
+        gap: 24px;
+    }
+
+    .form {
+        gap: 14px;
+
+        button {
+            align-self: center;
+            width: 33%;
+        }
+    }
+
+    .label {
+        gap: 10px;
+    }
+
+    .input {
+        border-radius: 12px;
+        padding: 18px 22px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .bookingFormWrapper {
+        gap: 24px;
+        padding: 44px;
+    }
+
+    .formHeader {
+        gap: 8px;
+    }
+
+    .bookingFormTitle {
+        font-size: 20px;
+    }
+
+    .bookingFormDescription {
+        font-size: 16px;
+    }
+
+    .formWrapper {
+        gap: 24px;
+    }
+
+    .form {
+        gap: 14px;
+    }
+
+    .label {
+        gap: 10px;
+    }
+
+    .input {
+        border-radius: 12px;
+        padding: 18px 0;
+        font-size: 16px;
+    }
+
+    .textarea {
+        min-height: auto;
+    }
 }

@@ -1,7 +1,27 @@
 .pageWrapper {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    gap: 64px;
+    flex-direction: column;
+    gap: 40px;
     align-items: flex-start;
+}
+
+
+@media screen and (min-width: 375px) {
+    .pageWrapper {
+        gap: 48px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .pageWrapper {
+        gap: 56px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .pageWrapper {
+        flex-direction: row;
+        gap: 64px;
+    }
 }
