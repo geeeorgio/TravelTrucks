@@ -126,6 +126,12 @@
 }
 
 .ratingNum,
+.reviewsNum {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ratingNum,
 .reviewsNum,
 .locationText {
     font-weight: 400;

@@ -42,6 +42,18 @@
 .mapIcon {
     width: 14px;
     height: 14px;
+    fill: var(--color-main);
+}
+
+.starIcon {
+    composes: mapIcon;
+    fill: var(--color-rating);
+}
+
+.ratingNum {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
 }
 
 .ratingNum,

@@ -115,7 +115,7 @@ const CatalogPage = () => {
             <Loader />
           ) : (
             <div className={s.listWrapper}>
-              {campersList.length === 0 ? (
+              {!campersLoading && campersList.length === 0 ? (
                 <p className={s.noResults}>
                   {searchParamsString
                     ? "No campers match these filters. Try changing filters 😞"

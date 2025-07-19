@@ -68,10 +68,9 @@ const CampersListItem = ({ item }) => {
             <div className={s.secondaryInfo}>
               <div className={s.rating}>
                 <CustomIcons className={s.starIcon} iconId={"star"} />
-                <span className={s.ratingNum}>{camper.rating.toFixed(1)}</span>
-                <span
-                  className={s.reviewsNum}
-                >{`(${reviewsNumber} reviews)`}</span>
+                <span className={s.ratingNum}>{`${camper.rating.toFixed(
+                  1
+                )} (${reviewsNumber} reviews)`}</span>
               </div>
               <div className={s.location}>
                 <CustomIcons className={s.locationIcon} iconId={"map"} />
