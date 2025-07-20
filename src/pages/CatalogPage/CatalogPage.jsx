@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import {
   selectAllCampersList,
   selectCampersIsLoading,
+  selectSearchParams,
   selectTotalCampersNumber,
 } from "../../redux/campersAll/selectors";
 import { getCampersBySearchParams } from "../../redux/campersAll/operations";
@@ -20,29 +21,25 @@ import s from "./CatalogPage.module.css";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
+
+  const loadMoreBtnRef = useRef(null);
+
   const campersList = useSelector(selectAllCampersList);
   const totalCampers = useSelector(selectTotalCampersNumber);
   const campersLoading = useSelector(selectCampersIsLoading);
+  const reduxSearchParams = useSelector(selectSearchParams);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [urlParams, setUrlParams] = useSearchParams();
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const [paginator, setPaginator] = useState({
     limit: 4,
     page: 1,
   });
 
-  const searchParamsString = searchParams.toString();
-
   const isAbleToLoad = totalCampers > paginator.page * paginator.limit;
-
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
   const showSearchForm = (isMobile && isFormOpen) || !isMobile;
-
-  const toggleForm = () => {
-    setIsFormOpen((prev) => !prev);
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -65,16 +62,23 @@ const CatalogPage = () => {
           getCampersBySearchParams({
             page: paginator.page,
             limit: paginator.limit,
-            params: searchParamsString,
+            params: reduxSearchParams || urlParams,
           })
         ).unwrap();
+
+        if (paginator.page > 1 && loadMoreBtnRef.current) {
+          loadMoreBtnRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+          });
+        }
       } catch {
         toast.error("No campers found for these filters 😞");
       }
     };
 
     fetchCampers();
-  }, [dispatch, paginator.page, paginator.limit, searchParamsString]);
+  }, [dispatch, paginator.page, paginator.limit, urlParams, reduxSearchParams]);
 
   const handleLoadMore = () => {
     if (!isAbleToLoad) {
@@ -88,6 +92,11 @@ const CatalogPage = () => {
   const handleResetForm = () => {
     setPaginator({ limit: 4, page: 1 });
     dispatch(clearState());
+    setUrlParams("");
+  };
+
+  const toggleForm = () => {
+    setIsFormOpen((prev) => !prev);
   };
 
   return (
@@ -106,8 +115,10 @@ const CatalogPage = () => {
 
           {showSearchForm && (
             <SearchForm
-              setSearchParams={setSearchParams}
+              setUrlParams={setUrlParams}
               handleResetForm={handleResetForm}
+              toggleForm={toggleForm}
+              isMobile={isMobile}
             />
           )}
 
@@ -117,7 +128,7 @@ const CatalogPage = () => {
             <div className={s.listWrapper}>
               {!campersLoading && campersList.length === 0 ? (
                 <p className={s.noResults}>
-                  {searchParamsString
+                  {reduxSearchParams
                     ? "No campers match these filters. Try changing filters 😞"
                     : "No campers found in our catalog. Please try again later. 😞"}
                 </p>
@@ -130,6 +141,7 @@ const CatalogPage = () => {
                     type="button"
                     onClick={handleLoadMore}
                     className={s.loadMoreBtn}
+                    ref={loadMoreBtnRef}
                   >
                     Load more
                   </CustomButton>

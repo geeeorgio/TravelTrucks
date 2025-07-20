@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/campers/:id" element={<CamperDetailsPage />}>
+        <Route path="/catalog/:id" element={<CamperDetailsPage />}>
           <Route index element={<Navigate to="features" />} />
           <Route path="features" element={<CamperFeatures />} />
           <Route path="reviews" element={<CamperReviews />} />

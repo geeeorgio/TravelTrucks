@@ -63,6 +63,7 @@ const BookingForm = () => {
               onChange={handleFormChange}
               placeholder="Name*"
               className={s.input}
+              autoComplete="name"
             />
           </label>
           <label htmlFor="email" className={s.label}>
@@ -74,6 +75,7 @@ const BookingForm = () => {
               value={formData.email}
               onChange={handleFormChange}
               className={s.input}
+              autoComplete="email"
             />
           </label>
 
@@ -92,6 +94,7 @@ const BookingForm = () => {
               onChange={handleFormChange}
               placeholder="Comment*"
               className={`${s.input} ${s.textarea}`}
+              autoComplete="off"
             ></textarea>
           </label>
           <CustomButton type="submit">Send</CustomButton>

@@ -13,6 +13,7 @@ const Calendar = ({ selectedDate, setSelectedDate }) => {
       placeholderText="Booking Date*"
       className={s.calendarInput}
       calendarClassName={s.calendar}
+      autoComplete="off"
     />
   );
 };

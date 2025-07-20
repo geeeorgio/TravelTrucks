@@ -23,5 +23,6 @@
     .pageWrapper {
         flex-direction: row;
         gap: 64px;
+        align-items: flex-start;
     }
 }

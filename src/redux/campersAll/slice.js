@@ -6,6 +6,7 @@ const initialState = {
   total: null,
   isLoading: false,
   isError: false,
+  searchParams: "",
 };
 
 const slice = createSlice({
@@ -14,6 +15,9 @@ const slice = createSlice({
   reducers: {
     clearState: () => {
       return initialState;
+    },
+    setReduxSearchParams: (state, { payload }) => {
+      state.searchParams = payload.toString();
     },
   },
   extraReducers: (builder) => {
@@ -58,5 +62,5 @@ const slice = createSlice({
   },
 });
 
-export const { clearState } = slice.actions;
+export const { clearState, setReduxSearchParams } = slice.actions;
 export const campersReducer = slice.reducer;

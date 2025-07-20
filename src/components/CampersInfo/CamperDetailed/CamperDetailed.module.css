@@ -329,11 +329,30 @@
 
     .imageGallery {
         gap: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
     }
 
     .galleryImageContainer {
-        width: calc((100% - 2 * 16px) / 3);
-        height: 200px;
+        width: calc(33.33% - (2 * 16px / 3));
+        flex: 1 1 calc(33.33% - (2 * 16px / 3));
+        min-width: 200px;
+        height: 312px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .galleryImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        object-position: center;
     }
 
     .description {

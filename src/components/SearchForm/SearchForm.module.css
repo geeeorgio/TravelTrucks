@@ -64,7 +64,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
 }
 
@@ -128,8 +128,8 @@
         flex-direction: column;
         flex-wrap: nowrap;
         gap: 24px;
-        width: 360px;
-        min-width: 360px;
+        width: 290px;
+        min-width: 290px;
         padding: 0;
         align-items: flex-start;
         justify-content: flex-start;
@@ -157,19 +157,26 @@
     }
 
     .buttons {
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
         width: 100%;
+        gap: 12px;
+        align-items: stretch;
     }
 }
 
 @media screen and (min-width: 1440px) {
     .form {
+        width: 360px;
+        min-width: 360px;
         gap: 32px;
     }
 
     .groupTitle {
         font-size: 20px;
         padding-bottom: 20px;
+    }
+
+    .buttons {
+        flex-direction: row;
     }
 }
