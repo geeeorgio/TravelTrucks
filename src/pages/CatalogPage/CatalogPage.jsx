@@ -19,6 +19,7 @@ import Container from "../../components/CustomStyledComponents/Container/Contain
 import CustomButton from "../../components/CustomStyledComponents/CustomButton/CustomButton";
 
 import s from "./CatalogPage.module.css";
+import { parseUrlToFormData } from "../../helpers/parseUrlToFormData";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const CatalogPage = () => {
   const isAbleToLoad = totalCampers > paginator.page * paginator.limit;
   const showSearchForm = (isMobile && isFormOpen) || !isMobile;
   const searchUrl = searchParamsString(reduxSearchParams, urlParams);
+  const initialSearchValues = parseUrlToFormData(urlParams);
 
   useEffect(() => {
     const handleResize = () => {
@@ -121,6 +123,7 @@ const CatalogPage = () => {
               handleResetForm={handleResetForm}
               toggleForm={toggleForm}
               isMobile={isMobile}
+              initialSearchValues={initialSearchValues}
             />
           )}
 

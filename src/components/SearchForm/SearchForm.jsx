@@ -21,16 +21,11 @@ const SearchForm = ({
   handleResetForm,
   toggleForm,
   isMobile,
+  initialSearchValues,
 }) => {
   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState({
-    location: "",
-    equipment: [],
-    vehicleType: "",
-    engineType: "",
-    transmissionType: "",
-  });
+  const [formData, setFormData] = useState(initialSearchValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -172,7 +167,11 @@ const SearchForm = ({
 
       <div className={s.buttons}>
         <CustomButton type="submit">Search</CustomButton>
-        <CustomButton type="reset" onClick={handleReset}>
+        <CustomButton
+          type="reset"
+          className={s.resetBtn}
+          onClick={handleReset}
+        >
           Reset
         </CustomButton>
       </div>
