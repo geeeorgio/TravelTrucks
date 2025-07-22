@@ -7,14 +7,14 @@ import CustomButton from "../CustomStyledComponents/CustomButton/CustomButton";
 import { setReduxSearchParams } from "../../redux/campersAll/slice";
 import { urlBuilder } from "../../helpers/urlBuilder";
 import { isEmpty } from "../../helpers/validateFormData";
-
-import s from "./SearchForm.module.css";
 import {
   engineTypeGroup,
   transmissionTypeGroup,
   vehicleEquipmentGroup,
   vehicleTypeGroup,
 } from "../../helpers/searchFormOptionsMap";
+
+import s from "./SearchForm.module.css";
 
 const SearchForm = ({
   setUrlParams,
@@ -172,7 +172,7 @@ const SearchForm = ({
 
       <div className={s.buttons}>
         <CustomButton type="submit">Search</CustomButton>
-        <CustomButton type="button" onClick={handleReset}>
+        <CustomButton type="reset" onClick={handleReset}>
           Reset
         </CustomButton>
       </div>

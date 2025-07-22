@@ -25,3 +25,10 @@ export const urlBuilder = (formData) => {
 
   return url;
 };
+
+export const searchParamsString = (reduxParams, urlParams) => {
+  const searchParamsString =
+    reduxParams !== "" ? reduxParams : urlParams.toString();
+
+  return searchParamsString;
+};

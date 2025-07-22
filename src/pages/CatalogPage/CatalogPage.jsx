@@ -10,6 +10,7 @@ import {
 } from "../../redux/campersAll/selectors";
 import { getCampersBySearchParams } from "../../redux/campersAll/operations";
 import { clearState } from "../../redux/campersAll/slice";
+import { searchParamsString } from "../../helpers/urlBuilder";
 import Loader from "../../components/Loader/Loader";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import CampersList from "../../components/CampersList/CampersList";
@@ -40,6 +41,7 @@ const CatalogPage = () => {
 
   const isAbleToLoad = totalCampers > paginator.page * paginator.limit;
   const showSearchForm = (isMobile && isFormOpen) || !isMobile;
+  const searchUrl = searchParamsString(reduxSearchParams, urlParams);
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,7 +64,7 @@ const CatalogPage = () => {
           getCampersBySearchParams({
             page: paginator.page,
             limit: paginator.limit,
-            params: reduxSearchParams || urlParams,
+            params: searchUrl,
           })
         ).unwrap();
 
@@ -78,7 +80,7 @@ const CatalogPage = () => {
     };
 
     fetchCampers();
-  }, [dispatch, paginator.page, paginator.limit, urlParams, reduxSearchParams]);
+  }, [dispatch, paginator.page, paginator.limit, searchUrl]);
 
   const handleLoadMore = () => {
     if (!isAbleToLoad) {
